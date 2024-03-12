@@ -1,2 +1,3 @@
-# backend
-Backend for Downdelving, written in Go
+# Downdelving [Backend]
+
+Backend for Downdelving, an experimental MUD.
