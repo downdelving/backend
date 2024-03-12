@@ -1,10 +1,18 @@
 package main
 
-// Import the package that contains the code we want to run from the actual package path
 import (
-	net "github.com/downdelving/backend/internal/net"
+	"fmt"
+	"log/slog"
+
+	server "github.com/downdelving/backend/internal/server"
 )
 
 func main() {
-	net.StartServer()
+	options := Options{}
+	parseFlags(&options)
+	slog.SetLogLoggerLevel(options.LogLevel)
+	if options.Listen {
+		slog.Info(fmt.Sprintf("Starting server on port %d...", options.ListenPort))
+		server.StartServer(options.ListenPort)
+	}
 }
