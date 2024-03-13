@@ -3,11 +3,12 @@ package server
 import (
 	"net/http"
 
-	rest "github.com/downdelving/backend/internal/server/rest"
+	api "github.com/downdelving/backend/internal/server/api"
 	websocket "github.com/downdelving/backend/internal/server/websocket"
+	"github.com/downdelving/backend/pkg/storage"
 )
 
-func SetupServer(mux *http.ServeMux) {
-	rest.SetupMux(mux)
+func SetupServer(mux *http.ServeMux, accountStorage storage.IAccountStorage) {
+	api.SetupMux(mux, accountStorage)
 	websocket.SetupMux(mux)
 }
