@@ -10,6 +10,6 @@ import (
 )
 
 func SetupMux(mux *http.ServeMux, accountStorage storage.AccountStorage, passwordHasher util.PasswordHasher, accountIDGenerator util.AccountIDGenerator) {
+	account.SetupMux(mux, accountStorage, passwordHasher, accountIDGenerator)
 	auth.SetupMux(mux, accountStorage, passwordHasher, accountIDGenerator)
-	account.SetupMux(mux, accountStorage, passwordHasher)
 }
