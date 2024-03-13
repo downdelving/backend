@@ -37,7 +37,7 @@ func TestCreateAccount(t *testing.T) {
 		{
 			name: "Duplicate Account",
 			accounts: map[string]model.Account{
-				"1": model.Account{
+				"1": {
 					Id:       "1",
 					Email:    "user@domain.com",
 					Username: "user",
