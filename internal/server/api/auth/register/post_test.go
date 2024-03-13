@@ -7,7 +7,9 @@ import (
 	"testing"
 
 	"github.com/downdelving/backend/internal/server/api/auth/register"
-	"github.com/downdelving/backend/internal/storage"
+	"github.com/downdelving/backend/internal/storage/inmemory/accountstorage"
+	"github.com/downdelving/backend/internal/util/account/idgenerator"
+	"github.com/downdelving/backend/internal/util/account/passwordhasher"
 )
 
 // setup sets up a test HTTP server along with a register.Handler.
@@ -15,8 +17,10 @@ import (
 func setup(t *testing.T) (*httptest.ResponseRecorder, *http.ServeMux) {
 	t.Helper()
 	rec := httptest.NewRecorder()
-	accountStorage := storage.NewInMemoryAccountStorage()
-	registerHandler := register.NewHandler(accountStorage)
+	accountStorage := accountstorage.New()
+	passwordHasher := &passwordhasher.Identity{}
+	accountIdGenerator := &idgenerator.Uuid{}
+	registerHandler := register.NewHandler(accountStorage, passwordHasher, accountIdGenerator)
 	server := http.NewServeMux()
 	server.HandleFunc("/api/auth/register", registerHandler.Post)
 	return rec, server
@@ -73,9 +77,9 @@ func TestRegisterEndpoint(t *testing.T) {
 		},
 		{
 			name:           "Valid Request",
-			payload:        []byte(`{"username":"test","password":"password","email":"user@domain.com"}`), // Adjust this payload as necessary.
+			payload:        []byte(`{"username":"test","password":"password","email":"user@domain.com"}`),
 			expectedStatus: http.StatusCreated,
-			expectedBody:   "{\"message\": \"Successfully registered!\"}", // Adjust or check for the expected body of a valid request.
+			expectedBody:   "{\"message\": \"Successfully registered!\"}",
 		},
 	}
 

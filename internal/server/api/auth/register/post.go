@@ -4,18 +4,22 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/downdelving/backend/internal/util"
 	"github.com/downdelving/backend/pkg/model"
 	"github.com/downdelving/backend/pkg/storage"
+	"github.com/downdelving/backend/pkg/util"
 )
 
 type Handler struct {
-	AccountStorage storage.IAccountStorage
+	AccountStorage     storage.AccountStorage
+	PasswordHasher     util.PasswordHasher
+	AccountIdGenerator util.AccountIdGenerator
 }
 
-func NewHandler(accountStorage storage.IAccountStorage) *Handler {
+func NewHandler(accountStorage storage.AccountStorage, passwordHasher util.PasswordHasher, accountIdGenerator util.AccountIdGenerator) *Handler {
 	return &Handler{
-		AccountStorage: accountStorage,
+		AccountStorage:     accountStorage,
+		PasswordHasher:     passwordHasher,
+		AccountIdGenerator: accountIdGenerator,
 	}
 }
 
@@ -33,13 +37,13 @@ func (h *Handler) Post(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Missing required fields", http.StatusBadRequest)
 		return
 	}
-	hashedPassword, err := util.HashPassword(req.Password)
+	hashedPassword, err := h.PasswordHasher.HashPassword(req.Password)
 	if err != nil {
 		http.Error(w, "Failed to hash password", http.StatusInternalServerError)
 		return
 	}
 	account := model.Account{
-		ID:       util.GenerateID(),
+		Id:       h.AccountIdGenerator.GenerateId(),
 		Username: req.Username,
 		Email:    req.Email,
 		Password: hashedPassword,

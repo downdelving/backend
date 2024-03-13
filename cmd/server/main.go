@@ -5,7 +5,9 @@ import (
 	"log/slog"
 
 	"github.com/downdelving/backend/internal/server"
-	"github.com/downdelving/backend/internal/storage"
+	"github.com/downdelving/backend/internal/storage/inmemory/accountstorage"
+	"github.com/downdelving/backend/internal/util/account/idgenerator"
+	"github.com/downdelving/backend/internal/util/account/passwordhasher"
 )
 
 func main() {
@@ -14,7 +16,9 @@ func main() {
 	slog.SetLogLoggerLevel(options.LogLevel)
 	if options.Listen {
 		slog.Info(fmt.Sprintf("Starting server on port %d...", options.ListenPort))
-		accountStorage := storage.NewInMemoryAccountStorage()
-		server.StartServer(options.ListenPort, accountStorage)
+		accountStorage := accountstorage.New()
+		passwordHasher := passwordhasher.NewBcrypt()
+		accountIdGenerator := &idgenerator.Uuid{}
+		server.StartServer(options.ListenPort, accountStorage, passwordHasher, accountIdGenerator)
 	}
 }
