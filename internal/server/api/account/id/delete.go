@@ -5,16 +5,16 @@ import (
 )
 
 func (h *Handler) Delete(w http.ResponseWriter, r *http.Request) {
-	accountId := r.PathValue("id")
-	if accountId == "" {
+	accountID := r.PathValue("id")
+	if accountID == "" {
 		http.Error(w, "Missing account id", http.StatusBadRequest)
 		return
 	}
-	if err := h.AccountStorage.DeleteAccount(accountId); err != nil {
+	if err := h.AccountStorage.DeleteAccount(accountID); err != nil {
 		http.Error(w, "Failed to delete account", http.StatusInternalServerError)
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusCreated)
+	w.WriteHeader(http.StatusNoContent)
 	w.Write([]byte(`{"message": "Successfully deleted account!"}`))
 }

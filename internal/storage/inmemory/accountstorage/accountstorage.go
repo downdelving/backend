@@ -28,15 +28,15 @@ func (s *AccountStorage) CreateAccount(account model.Account) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
-	if _, exists := s.accounts[account.Id]; exists {
+	if _, exists := s.accounts[account.ID]; exists {
 		return errors.New("account already exists")
 	}
 
-	s.accounts[account.Id] = account
+	s.accounts[account.ID] = account
 	return nil
 }
 
-func (s *AccountStorage) GetAccountById(id string) (model.Account, error) {
+func (s *AccountStorage) GetAccountByID(id string) (model.Account, error) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 
@@ -103,11 +103,11 @@ func (s *AccountStorage) UpdateAccount(account model.Account) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
-	if _, exists := s.accounts[account.Id]; !exists {
+	if _, exists := s.accounts[account.ID]; !exists {
 		return errors.New("account not found")
 	}
 
-	s.accounts[account.Id] = account
+	s.accounts[account.ID] = account
 	return nil
 }
 

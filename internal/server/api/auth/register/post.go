@@ -27,7 +27,7 @@ func (h *Handler) Post(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	account := model.Account{
-		Id:       h.AccountIdGenerator.GenerateId(),
+		ID:       h.AccountIDGenerator.GenerateID(),
 		Username: req.Username,
 		Email:    req.Email,
 		Password: hashedPassword,

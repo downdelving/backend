@@ -1,5 +1,5 @@
 package util
 
-type AccountIdGenerator interface {
-	GenerateId() string
+type AccountIDGenerator interface {
+	GenerateID() string
 }

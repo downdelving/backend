@@ -8,13 +8,13 @@ import (
 type Handler struct {
 	AccountStorage     storage.AccountStorage
 	PasswordHasher     util.PasswordHasher
-	AccountIdGenerator util.AccountIdGenerator
+	AccountIDGenerator util.AccountIDGenerator
 }
 
-func NewHandler(accountStorage storage.AccountStorage, passwordHasher util.PasswordHasher, accountIdGenerator util.AccountIdGenerator) *Handler {
+func NewHandler(accountStorage storage.AccountStorage, passwordHasher util.PasswordHasher, accountIDGenerator util.AccountIDGenerator) *Handler {
 	return &Handler{
 		AccountStorage:     accountStorage,
 		PasswordHasher:     passwordHasher,
-		AccountIdGenerator: accountIdGenerator,
+		AccountIDGenerator: accountIDGenerator,
 	}
 }

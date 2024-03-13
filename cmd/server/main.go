@@ -18,7 +18,7 @@ func main() {
 		slog.Info(fmt.Sprintf("Starting server on port %d...", options.ListenPort))
 		accountStorage := accountstorage.New()
 		passwordHasher := passwordhasher.NewBcrypt()
-		accountIdGenerator := &idgenerator.Uuid{}
-		server.StartServer(options.ListenPort, accountStorage, passwordHasher, accountIdGenerator)
+		accountIDGenerator := &idgenerator.UUID{}
+		server.StartServer(options.ListenPort, accountStorage, passwordHasher, accountIDGenerator)
 	}
 }

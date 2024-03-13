@@ -4,10 +4,9 @@ import (
 	"github.com/google/uuid"
 )
 
-type Uuid struct {
+type UUID struct {
 }
 
-// Generate a UUID.
-func (u *Uuid) GenerateId() string {
+func (u *UUID) GenerateID() string {
 	return uuid.New().String()
 }

@@ -9,7 +9,7 @@ import (
 	"github.com/downdelving/backend/pkg/util"
 )
 
-func SetupMux(mux *http.ServeMux, accountStorage storage.AccountStorage, passwordHasher util.PasswordHasher, accountIdGenerator util.AccountIdGenerator) {
-	auth.SetupMux(mux, accountStorage, passwordHasher, accountIdGenerator)
+func SetupMux(mux *http.ServeMux, accountStorage storage.AccountStorage, passwordHasher util.PasswordHasher, accountIDGenerator util.AccountIDGenerator) {
+	auth.SetupMux(mux, accountStorage, passwordHasher, accountIDGenerator)
 	account.SetupMux(mux, accountStorage, passwordHasher)
 }

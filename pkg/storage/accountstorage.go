@@ -4,7 +4,7 @@ import "github.com/downdelving/backend/pkg/model"
 
 type AccountStorage interface {
 	CreateAccount(account model.Account) error
-	GetAccountById(id string) (model.Account, error)
+	GetAccountByID(id string) (model.Account, error)
 	GetAccountByEmail(email string) (model.Account, error)
 	GetAccountByUsername(username string) (model.Account, error)
 	GetAccountByUsernameOrEmail(usernameOrEmail string) (model.Account, error)

@@ -32,7 +32,7 @@ func (h *Handler) Post(w http.ResponseWriter, r *http.Request) {
 	}
 	hashedPassword := account.Password
 	match, err := h.PasswordHasher.ComparePassword(hashedPassword, req.Password)
-	if match == false || err != nil {
+	if !match || err != nil {
 		http.Error(w, "Invalid username/email or password", http.StatusUnauthorized)
 		return
 	}

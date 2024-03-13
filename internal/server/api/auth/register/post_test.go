@@ -19,8 +19,8 @@ func setup(t *testing.T) (*httptest.ResponseRecorder, *http.ServeMux) {
 	rec := httptest.NewRecorder()
 	accountStorage := accountstorage.New()
 	passwordHasher := &passwordhasher.Identity{}
-	accountIdGenerator := &idgenerator.Uuid{}
-	registerHandler := register.NewHandler(accountStorage, passwordHasher, accountIdGenerator)
+	accountIDGenerator := &idgenerator.UUID{}
+	registerHandler := register.NewHandler(accountStorage, passwordHasher, accountIDGenerator)
 	server := http.NewServeMux()
 	server.HandleFunc("/api/auth/register", registerHandler.Post)
 	return rec, server

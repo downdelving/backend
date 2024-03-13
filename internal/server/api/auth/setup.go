@@ -11,8 +11,8 @@ import (
 	"github.com/downdelving/backend/pkg/util"
 )
 
-func SetupMux(mux *http.ServeMux, accountStorage storage.AccountStorage, passwordHasher util.PasswordHasher, accountIdGenerator util.AccountIdGenerator) {
-	registerHandler := register.NewHandler(accountStorage, passwordHasher, accountIdGenerator)
+func SetupMux(mux *http.ServeMux, accountStorage storage.AccountStorage, passwordHasher util.PasswordHasher, accountIDGenerator util.AccountIDGenerator) {
+	registerHandler := register.NewHandler(accountStorage, passwordHasher, accountIDGenerator)
 	mux.HandleFunc("POST /api/auth/login", login.Post)
 	mux.HandleFunc("GET /api/auth/logout", logout.Get)
 	mux.HandleFunc("POST /api/auth/refresh", refresh.Post)

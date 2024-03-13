@@ -1,7 +1,7 @@
 package model
 
 type Account struct {
-	Id       string
+	ID       string
 	Username string
 	Email    string
 	Password string

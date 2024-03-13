@@ -10,7 +10,7 @@ import (
 
 // type AccountStorage interface {
 // 	CreateAccount(account model.Account) error
-// 	GetAccountById(id string) (model.Account, error)
+// 	GetAccountByID(id string) (model.Account, error)
 // 	GetAccountByEmail(email string) (model.Account, error)
 // 	GetAllAccounts() ([]model.Account, error)
 // 	UpdateAccount(account model.Account) error
@@ -28,7 +28,7 @@ func TestCreateAccount(t *testing.T) {
 			name:     "Create Account",
 			accounts: map[string]model.Account{},
 			account: model.Account{
-				Id:       "1",
+				ID:       "1",
 				Email:    "user@domain.com",
 				Username: "user",
 				Password: "password",
@@ -38,14 +38,14 @@ func TestCreateAccount(t *testing.T) {
 			name: "Duplicate Account",
 			accounts: map[string]model.Account{
 				"1": {
-					Id:       "1",
+					ID:       "1",
 					Email:    "user@domain.com",
 					Username: "user",
 					Password: "password",
 				},
 			},
 			account: model.Account{
-				Id:       "1",
+				ID:       "1",
 				Email:    "user@domain.com",
 				Username: "user",
 				Password: "password",
