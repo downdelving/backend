@@ -61,6 +61,32 @@ func (s *AccountStorage) GetAccountByEmail(email string) (model.Account, error) 
 	return model.Account{}, errors.New("account not found")
 }
 
+func (s *AccountStorage) GetAccountByUsername(username string) (model.Account, error) {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+
+	for _, account := range s.accounts {
+		if account.Username == username {
+			return account, nil
+		}
+	}
+
+	return model.Account{}, errors.New("account not found")
+}
+
+func (s *AccountStorage) GetAccountByUsernameOrEmail(usernameOrEmail string) (model.Account, error) {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+
+	for _, account := range s.accounts {
+		if account.Username == usernameOrEmail || account.Email == usernameOrEmail {
+			return account, nil
+		}
+	}
+
+	return model.Account{}, errors.New("account not found")
+}
+
 func (s *AccountStorage) GetAllAccounts() ([]model.Account, error) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()

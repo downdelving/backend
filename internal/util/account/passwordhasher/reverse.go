@@ -13,6 +13,10 @@ func (r *Reverse) HashPassword(password string) (string, error) {
 	return string(runes), nil
 }
 
+func (r *Reverse) ComparePassword(hashedPassword, password string) (bool, error) {
+	return hashedPassword == password, nil
+}
+
 func (r *Reverse) CheckPassword(hashedPassword, password string) bool {
 	return hashedPassword == password
 }
